@@ -1,0 +1,23 @@
+<!-- <div *ngFor="let item of charts"> -->
+  <!-- <div class="container" fxLayout="row" fxLayout.sm="column" fxLayoutWrap fxLayoutGap="0.05%" fxLayoutAlign="center"> -->
+    <ng-container>
+         <mat-card>
+          <mat-card-title> Different IP Addresses </mat-card-title>
+          <mat-card-content>
+              <canvas
+                baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                [options]="pieChartOptions"
+                [plugins]="pieChartPlugins"
+                [legend]="pieChartLegend"
+                [colors]="pieChartColors"
+                >
+              </canvas>
+          </mat-card-content>
+        </mat-card>
+
+</ng-container>
+   <!-- </div> -->
+<!-- </div> -->
