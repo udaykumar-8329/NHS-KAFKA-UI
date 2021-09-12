@@ -1,25 +1,92 @@
-<form class="center" (ngSubmit)="onSubmit(ipAddress.value,portaddress.value)" [formGroup]="searchFormData" >
-  <div class="center" >
-    <input formControlName="ipAddress" matInput placeholder="Enter IP Address" name="ipAddress" #ipAddress required pattern="^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$" />
-    <input matInput placeholder="Port ID" formControlName="port" #portaddress name="portaddress" value="4200" required type="number" />
-    <button mat-raised-button [disabled]="!searchFormData.valid" type="submit">Search</button>
+<form
+  (ngSubmit)="onSubmit(ipAddress.value, portaddress.value)"
+  [formGroup]="searchFormData"
+>
+  <div class="center">
+    <input
+      formControlName="ipAddress"
+      matInput
+      placeholder="Enter IP Address"
+      name="ipAddress"
+      #ipAddress
+      required
+      pattern="^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$"
+    />
+    <input
+      matInput
+      placeholder="Port ID"
+      formControlName="port"
+      #portaddress
+      name="portaddress"
+      value="4200"
+      required
+      type="number"
+    />
+    <button mat-raised-button type="submit">Search</button>
   </div>
-  <!-- {{searchFormData.invalid}} -->
 </form>
-<!-- <div class="center" >
-  <p>
-{{'PORT ADDRESS: '+ portaddress.value + "," + 'IP ADDRESS: '+ ipAddress.value }}</p>
-</div> -->
+<!-- [disabled]="!searchFormData.valid" -->
 
-<div class="center" *ngIf="data.length==0">
+<!-- <div class="center" *ngIf="data.length==0">
   <p>No data available</p>
-</div>
-<div *ngFor="let item of data">
+</div> -->
+<!-- <div *ngFor="let item of data">
   <app-list-item [data]="item" ></app-list-item>
-</div>
+</div> -->
 
 <!-- <div ngIf={{data.length!=0}}>
   <div *ngFor="let item of data">
     <app-list-item (data)=item></app-list-item>
   </div>
 </div> -->
+
+<div style="width: 98vw; height: 82vh; min-height: 82vh">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+        Generic Counters
+      </ng-template>
+      <div class="scrollableContent">
+        <div *ngFor="let item of gcData" class="borderContent">
+          {{ item.Source }}
+          <div>
+            {{ item.Telemetry.node_id_str }}
+            <div>
+              {{ item.Telemetry.subscription_id_str }}
+            </div>
+            <div>{{ item.Telemetry.encoding_path }}</div>
+            <div>{{ item.Telemetry.collection_id }}</div>
+            <div>{{ item.Telemetry.collection_start_time }}</div>
+            <div>{{ item.Telemetry.msg_timestamp }}</div>
+            <div>{{ item.Telemetry.collection_end_time }}</div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+        CPU Processes
+      </ng-template>
+      <div class="scrollableContent">
+        <div *ngFor="let item of cpuData" class="borderContent">
+          {{ item.Source }}
+          <div>
+            {{ item.Telemetry.node_id_str }}
+            <div>
+              {{ item.Telemetry.subscription_id_str }}
+            </div>
+            <div>{{ item.Telemetry.encoding_path }}</div>
+            <div>{{ item.Telemetry.collection_id }}</div>
+            <div>{{ item.Telemetry.collection_start_time }}</div>
+            <div>{{ item.Telemetry.msg_timestamp }}</div>
+            <div>{{ item.Telemetry.collection_end_time }}</div>
+          </div>
+        </div>
+        </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

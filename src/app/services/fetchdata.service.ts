@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
-import { IPInfo } from '../models/ipinfo.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +19,23 @@ export class FetchdataService {
     withCredentials?: boolean,
   }
 
-  fetchDataForIP(ipaddress,portid){
-    return this._http.get<IPInfo[]>("http://localhost:8088/fetch/ip/"+ipaddress);
+  fetchAllGCInfo(inputData?){
+    if(typeof inputData == undefined){
+      return this._http.get("http://localhost:8088/fetch/gc/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
+    }
+    else{
+      return this._http.get("http://localhost:8088/fetch/gc/all");
+    }
   }
 
-  fetchAllInfo(){
-    return this._http.get<IPInfo[]>("http://localhost:8088/fetch/all");
-  }
+  fetchAllCPUInfo(inputData?:any){
+    console.log(inputData);
 
+    if(typeof inputData == undefined){
+      return this._http.get("http://localhost:8088/fetch/cpu/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
+    }
+    else{
+      return this._http.get("http://localhost:8088/fetch/cpu/all");
+    }
+  }
 }

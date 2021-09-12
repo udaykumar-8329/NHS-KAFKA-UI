@@ -24,6 +24,8 @@ import { ChartsModule } from 'ng2-charts';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormBuilder } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,8 +53,13 @@ import { FormBuilder } from '@angular/forms';
     MatMenuModule,
     ChartsModule,
     FlexLayoutModule,
-    FormsModule, ReactiveFormsModule
-
+    FormsModule, ReactiveFormsModule,
+    ToastrModule.forRoot({
+      closeButton:true,
+      preventDuplicates:true,
+      autoDismiss:true,
+      progressBar:true,
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

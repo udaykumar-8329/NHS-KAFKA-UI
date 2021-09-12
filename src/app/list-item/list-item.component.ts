@@ -8,8 +8,11 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ListItemComponent implements OnInit {
 
   @Input() data;
-  constructor() { }
+  constructor() {
+
+  }
   ngOnInit(): void {
+    console.log(this.data);
   }
 
 }

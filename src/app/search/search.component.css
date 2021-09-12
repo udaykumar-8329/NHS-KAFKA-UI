@@ -14,3 +14,19 @@
   max-height:  40px;
   margin-top: 7.5px;
 }
+
+
+.scrollableContent{
+  margin: 30px;
+  height: 70vh;
+  overflow-y: scroll;
+  width: 96vw;
+  font-size: small;
+  color: blue;
+}
+
+.borderContent{
+  border: 2px solid black;
+  margin: 5px;
+  padding: 3px;
+}

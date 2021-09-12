@@ -12,7 +12,7 @@ const routes: Routes = [
     path:'Fetch',component:SearchComponent
   },
   {
-    path:'', component: DashboardComponent
+    path:'', component: SearchComponent
   }
 ];
 

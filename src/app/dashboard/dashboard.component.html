@@ -1,13 +1,14 @@
 <!-- <div *ngFor="let item of charts"> -->
   <!-- <div class="container" fxLayout="row" fxLayout.sm="column" fxLayoutWrap fxLayoutGap="0.05%" fxLayoutAlign="center"> -->
-    <ng-container>
+    <div>
+    <ng-container *ngIf="pieChartLabels.length!=0">
          <mat-card>
           <mat-card-title> Different IP Addresses </mat-card-title>
           <mat-card-content>
               <canvas
                 baseChart
-                [data]="pieChartData"
                 [labels]="pieChartLabels"
+                [data]="pieChartData"
                 [chartType]="pieChartType"
                 [options]="pieChartOptions"
                 [plugins]="pieChartPlugins"
@@ -17,7 +18,31 @@
               </canvas>
           </mat-card-content>
         </mat-card>
-
 </ng-container>
-   <!-- </div> -->
+</div>
+<div *ngIf="pieChartLabels.length==0">
+  <b>
+    No data available....
+  </b>
+</div>
+
 <!-- </div> -->
+
+
+<!-- <div class="scrollableContent">
+  <div *ngFor="let item of Details" class="borderContent" >
+    {{item.Source}}
+    <div>
+      {{item.Telemetry.node_id_str}}
+	<div>
+    {{item.Telemetry.subscription_id_str}}
+  </div>
+	<div>{{item.Telemetry.encoding_path     }}</div>
+<div>	{{item.Telemetry.collection_id     }}</div>
+<div>	{{item.Telemetry.collection_start_time}}</div>
+<div>	{{item.Telemetry.msg_timestamp       }}</div>
+<div>{{item.Telemetry.collection_end_time  }}</div>
+
+      </div>
+  </div>
+</div> -->
