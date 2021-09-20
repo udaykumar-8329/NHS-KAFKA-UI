@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
       this.Details = res;
       const counts = {};
       this.Details.forEach((x) => {
-        console.log(x);
+        // console.log(x);
         counts[x.Source] = (counts[x.Source] || 0) + 1;
       });
       console.log(counts);
@@ -57,7 +57,6 @@ export class DashboardComponent implements OnInit {
       });
       this.pieChartLabels = [...map.keys()];
       this.pieChartData = [...map.values()];
-
     })
   }
 

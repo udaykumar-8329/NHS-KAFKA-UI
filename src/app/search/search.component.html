@@ -27,66 +27,256 @@
 </form>
 <!-- [disabled]="!searchFormData.valid" -->
 
-<!-- <div class="center" *ngIf="data.length==0">
-  <p>No data available</p>
-</div> -->
-<!-- <div *ngFor="let item of data">
-  <app-list-item [data]="item" ></app-list-item>
-</div> -->
-
-<!-- <div ngIf={{data.length!=0}}>
-  <div *ngFor="let item of data">
-    <app-list-item (data)=item></app-list-item>
-  </div>
-</div> -->
-
 <div style="width: 98vw; height: 82vh; min-height: 82vh">
   <mat-tab-group mat-align-tabs="center">
     <mat-tab>
       <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+        <mat-icon class="example-tab-icon">build</mat-icon>
         Generic Counters
       </ng-template>
-      <div class="scrollableContent">
-        <div *ngFor="let item of gcData" class="borderContent">
-          {{ item.Source }}
-          <div>
-            {{ item.Telemetry.node_id_str }}
+      <div class="center" *ngIf="!gcData.length">
+        <p>No data available</p>
+      </div>
+
+      <div *ngIf="gcData.length">
+        <button mat-mini-fab style="float: right" (click)="getGCData()">
+          <mat-icon>cached</mat-icon>
+        </button>
+
+        <cdk-virtual-scroll-viewport itemSize="10" class="scrollableContent">
+          <div *cdkVirtualFor="let item of gcData" class="borderContent">
+            Source IP Address: {{ item.Source }}
             <div>
-              {{ item.Telemetry.subscription_id_str }}
+              Node ID: {{ item.Telemetry.node_id_str }}
+              <div>
+                Subscription ID: {{ item.Telemetry.subscription_id_str }}
+              </div>
+              <div>Encoding Path: {{ item.Telemetry.encoding_path }}</div>
+              <div>Collection ID: {{ item.Telemetry.collection_id }}</div>
+              <div>
+                Collection Start Time:
+                {{ item.Telemetry.collection_start_time }}
+              </div>
+              <div>Time Stamp: {{ item.Telemetry.msg_timestamp }}</div>
+              <div>
+                Collection End Time: {{ item.Telemetry.collection_end_time }}
+              </div>
             </div>
-            <div>{{ item.Telemetry.encoding_path }}</div>
-            <div>{{ item.Telemetry.collection_id }}</div>
-            <div>{{ item.Telemetry.collection_start_time }}</div>
-            <div>{{ item.Telemetry.msg_timestamp }}</div>
-            <div>{{ item.Telemetry.collection_end_time }}</div>
+            <div *ngFor="let row of item.Rows">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  {{ row.Keys["interface-name"] }} &nbsp; {{ row.Timestamp }}
+                </mat-expansion-panel-header>
+                <div>
+                  <div class="borderContentMaxContent">
+                    <p>
+                      broadcast-packets-received:
+                      {{ row.Content["broadcast-packets-received"] }}
+                    </p>
+                    <p>
+                      broadcast-packets-sent:
+                      {{ row.Content["broadcast-packets-sent"] }}
+                    </p>
+                    <p>bytes-received: {{ row.Content["bytes-received"] }}</p>
+                    <p>bytes-sent: {{ row.Content["bytes-sent"] }}</p>
+                    <p>
+                      Carrier-transitions:
+                      {{ row.Content["carrier-transitions"] }}
+                    </p>
+                  </div>
+                  <div class="borderContentMaxContent">
+                    <p>crc-errors: {{ row.Content["crc-errors"] }}</p>
+                    <p>
+                      framing-errors-received:
+                      {{ row.Content["framing-errors-received"] }}
+                    </p>
+                    <p>
+                      giant-packets-received:
+                      {{ row.Content["giant-packets-received"] }}
+                    </p>
+                    <p>last-data-time: {{ row.Content["last-data-time"] }}</p>
+                    <p>
+                      last-discontinuity-time:
+                      {{ row.Content["last-discontinuity-time"] }}
+                    </p>
+                  </div>
+
+                  <div class="borderContentMaxContent">
+                    <p>
+                      packets-received: {{ row.Content["packets-received"] }}
+                    </p>
+                    <p>
+                      packets-received: {{ row.Content["packets-received"] }}
+                    </p>
+                    <p>
+                      parity-packets-received:
+                      {{ row.Content["parity-packets-received"] }}
+                    </p>
+                    <p>resets: {{ row.Content["resets"] }}</p>
+                    <p>
+                      runt-packets-received:
+                      {{ row.Content["runt-packets-received"] }}
+                    </p>
+                  </div>
+                  <div class="borderContentMaxContent">
+                    <p>
+                      seconds-since-last-clear-counters:
+                      {{ row.Content["seconds-since-last-clear-counters"] }}
+                    </p>
+                    <p>
+                      seconds-since-packet-received:
+                      {{ row.Content["seconds-since-packet-received"] }}
+                    </p>
+                    <p>
+                      seconds-since-packet-sent:
+                      {{ row.Content["seconds-since-packet-sent"] }}
+                    </p>
+                    <p>
+                      throttled-packets-received:
+                      {{ row.Content["throttled-packets-received"] }}
+                    </p>
+                    <p>
+                      unknown-protocol-packets-received:
+                      {{ row.Content["unknown-protocol-packets-received"] }}
+                    </p>
+                  </div>
+                  <div class="borderContentMaxContent">
+                    <p>
+                      output-buffer-failures:
+                      {{ row.Content["output-buffer-failures"] }}
+                    </p>
+                    <p>
+                      output-buffers-swapped-out:
+                      {{ row.Content["output-buffers-swapped-out"] }}
+                    </p>
+                    <p>output-drops: {{ row.Content["output-drops"] }}</p>
+                    <p>output-errors: {{ row.Content["output-errors"] }}</p>
+                    <p>
+                      output-queue-drops:
+                      {{ row.Content["output-queue-drops"] }}
+                    </p>
+                    <p>
+                      output-underruns: {{ row.Content["output-underruns"] }}
+                    </p>
+                  </div>
+                  <div class="borderContentMaxContent">
+                    <p>input-aborts: {{ row.Content["input-aborts"] }}</p>
+                    <p>input-drops: {{ row.Content["input-drops"] }}</p>
+                    <p>input-errors: {{ row.Content["input-errors"] }}</p>
+                    <p>
+                      input-ignored-packets:
+                      {{ row.Content["input-ignored-packets"] }}
+                    </p>
+                    <p>input-overruns: {{ row.Content["input-overruns"] }}</p>
+                    <p>
+                      input-queue-drops: {{ row.Content["input-queue-drops"] }}
+                    </p>
+                  </div>
+
+                  <div class="borderContentMaxContent">
+                    <p>Applique: {{ row.Content.applique }}</p>
+                    <p>
+                      availability-flag: {{ row.Content["availability-flag"] }}
+                    </p>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </div>
           </div>
-        </div>
+        </cdk-virtual-scroll-viewport>
       </div>
     </mat-tab>
 
     <mat-tab>
       <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+        <mat-icon class="example-tab-icon">donut_large</mat-icon>
         CPU Processes
       </ng-template>
-      <div class="scrollableContent">
-        <div *ngFor="let item of cpuData" class="borderContent">
-          {{ item.Source }}
-          <div>
-            {{ item.Telemetry.node_id_str }}
-            <div>
-              {{ item.Telemetry.subscription_id_str }}
-            </div>
-            <div>{{ item.Telemetry.encoding_path }}</div>
-            <div>{{ item.Telemetry.collection_id }}</div>
-            <div>{{ item.Telemetry.collection_start_time }}</div>
-            <div>{{ item.Telemetry.msg_timestamp }}</div>
-            <div>{{ item.Telemetry.collection_end_time }}</div>
-          </div>
-        </div>
-        </div>
+      <div class="center" *ngIf="!cpuData.length">
+        <p>No data available</p>
+      </div>
 
+      <div *ngIf="cpuData.length">
+        <button mat-mini-fab style="float: right" (click)="getCPUData()">
+          <mat-icon>cached</mat-icon>
+        </button>
+        <cdk-virtual-scroll-viewport itemSize="10" class="scrollableContent">
+          <div *cdkVirtualFor="let item of cpuData" class="borderContent">
+            Source IP Address: {{ item.Source }}
+            <div>
+              Node ID: {{ item.Telemetry.node_id_str }}
+              <div>
+                Subscription ID: {{ item.Telemetry.subscription_id_str }}
+              </div>
+              <div>Encoding Path: {{ item.Telemetry.encoding_path }}</div>
+              <div>Collection ID: {{ item.Telemetry.collection_id }}</div>
+              <div>
+                Collection Start Time:
+                {{ item.Telemetry.collection_start_time }}
+              </div>
+              <div>Time Stamp: {{ item.Telemetry.msg_timestamp }}</div>
+              <div>
+                Collection End Time: {{ item.Telemetry.collection_end_time }}
+              </div>
+            </div>
+            <div>
+              <mat-accordion>
+                <div *ngFor="let row of item.Rows">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      {{ row.Keys["node-name"] }}
+                      {{ row.TimeStamp }}
+                    </mat-expansion-panel-header>
+                    <div>
+                      <p>
+                        Total CPU Fifteen Minute:
+                        {{ row.Content["total-cpu-fifteen-minute"] }}
+                      </p>
+                      <p>
+                        Total CPU Five Minute:
+                        {{ row.Content["total-cpu-five-minute"] }}
+                      </p>
+                      <p>
+                        Total CPU One Minute:
+                        {{ row.Content["total-cpu-one-minute"] }}
+                      </p>
+
+                      <div
+                        *ngFor="
+                          let cpupipelinedata of row.Content
+                            .ProcessCPUPIPELINEEDIT
+                        "
+                        class="borderContentMaxContent"
+                        fxLayout="row"
+                        fxLayoutAlign="space-around center"
+                      >
+                        <div>
+                          <p>Process ID: {{ cpupipelinedata["process-id"] }}</p>
+                          <p>
+                            Process Name: {{ cpupipelinedata["process-name"] }}
+                          </p>
+                          <p>
+                            Process CPU Fifteen Minute:
+                            {{ cpupipelinedata["process-cpu-fifteen-minute"] }}
+                          </p>
+                          <p>
+                            Process CPU Five Minute:
+                            {{ cpupipelinedata["process-cpu-five-minute"] }}
+                          </p>
+                          <p>
+                            Process CPU One Minute:
+                            {{ cpupipelinedata["process-cpu-one-minute"] }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </div>
+              </mat-accordion>
+            </div>
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

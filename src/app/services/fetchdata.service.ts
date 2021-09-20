@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { map, catchError} from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -9,6 +8,7 @@ import { map, catchError} from 'rxjs/operators';
 })
 export class FetchdataService {
 
+  apiUrl= environment.apiBaseUrl;
   constructor(private _http:HttpClient) { }
   options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -21,21 +21,21 @@ export class FetchdataService {
 
   fetchAllGCInfo(inputData?){
     if(typeof inputData == undefined){
-      return this._http.get("http://localhost:8088/fetch/gc/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
+      return this._http.get(this.apiUrl+"/fetch/gc/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
     }
     else{
-      return this._http.get("http://localhost:8088/fetch/gc/all");
+      return this._http.get(this.apiUrl+"/fetch/gc/all");
     }
   }
 
-  fetchAllCPUInfo(inputData?:any){
+  fetchAllCPUInfo(inputData?){
     console.log(inputData);
 
     if(typeof inputData == undefined){
-      return this._http.get("http://localhost:8088/fetch/cpu/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
+      return this._http.get(this.apiUrl+"/fetch/cpu/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
     }
     else{
-      return this._http.get("http://localhost:8088/fetch/cpu/all");
+      return this._http.get(this.apiUrl+"/fetch/cpu/all");
     }
   }
 }

@@ -25,7 +25,6 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormBuilder } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-
 @NgModule({
   declarations: [
     AppComponent,

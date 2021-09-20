@@ -9,7 +9,8 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
 import { MatTabsModule } from "@angular/material/tabs";
-
+import { MatExpansionModule, MatAccordion } from "@angular/material/expansion";
+import { ScrollingModule } from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [],
   exports: [
@@ -22,7 +23,9 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatExpansionModule,
+    ScrollingModule
   ]
 })
 export class MaterialModule { }
