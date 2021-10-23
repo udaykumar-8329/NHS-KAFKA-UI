@@ -1,0 +1,34 @@
+<div class="title">
+  <h3 style="width: 98%;">Add Mac Details</h3>
+  <mat-icon style="width: 2%; cursor: pointer;" (click)="onClose()">close</mat-icon>
+</div>
+
+<div>
+<form [formGroup]="macForm">
+  <div>
+    <mat-form-field>
+      <input matInput formControlName="macaddress" placeholder="Enter Mac Address" />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput formControlName="area" placeholder="Enter Area" />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput formControlName="city" placeholder="Enter City" />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput formControlName="country" placeholder="Enter Country" />
+    </mat-form-field>
+  </div>
+
+  <div class="actionRow">
+    <button *ngIf="!data" mat-raised-button color="primary" (click)="onSubmit()">Add Device</button>
+    <button *ngIf="data" mat-raised-button color="warn" (click)="onEdit()">Modify Device Data</button>
+  </div>
+</form>
+</div>

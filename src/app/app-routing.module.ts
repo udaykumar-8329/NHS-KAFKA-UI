@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddDeviceComponent } from './devices/add-device/add-device.component';
+import { DevicesComponent } from './devices/devices.component';
+import { MacDetailsComponent } from './mac-details/mac-details.component';
 import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
@@ -13,6 +16,9 @@ const routes: Routes = [
   },
   {
     path:'', component: SearchComponent
+  },
+  {path: 'devices', component: DevicesComponent},{
+    path: 'macdetails', component: MacDetailsComponent
   }
 ];
 

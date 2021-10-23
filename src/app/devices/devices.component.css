@@ -1,0 +1,57 @@
+.rightfab{
+  position: fixed;
+  right: 10px;
+  bottom: 15px;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-table, .mat-paginator{
+  width: 193%;
+  margin-left: 0.5%;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.mat-column-ip,.mat-column-name,.mat-column-port,.mat-column-useNSO,.mat-column-isEnabled,.mat-column-password,.mat-column-username{
+  width: 122px;
+  margin: 10px;
+  font-size: large;
+}
+
+.mat-column-edit, .mat-column-delete{
+  width: 2%;
+}
+
+@media screen and (max-width: 1024px) {
+
+  .mat-table, .mat-paginator{
+    width: 128%;
+    margin-left: 0.2%;
+  }
+
+  .mat-column-ip,.mat-column-name,.mat-column-port,.mat-column-useNSO,.mat-column-isEnabled,.mat-column-password,.mat-column-username{
+    width: 98px;
+    margin: 10px;
+    font-size: small;
+  }
+
+  .mat-column-edit, .mat-column-delete{
+    width: 2%;
+  }
+
+}

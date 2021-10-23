@@ -25,6 +25,10 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormBuilder } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { DevicesComponent } from './devices/devices.component';
+import { AddDeviceComponent } from './devices/add-device/add-device.component';
+import { MacDetailsComponent } from './mac-details/mac-details.component';
+import { AddMacDetailComponent } from './mac-details/add-mac-detail/add-mac-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +36,11 @@ import { ToastrModule } from 'ngx-toastr';
     ListItemComponent,
     DashboardComponent,
     MyChartsComponent,
-    SidenavComponent
+    SidenavComponent,
+    DevicesComponent,
+    AddDeviceComponent,
+    MacDetailsComponent,
+    AddMacDetailComponent
   ],
   imports: [
     BrowserModule,

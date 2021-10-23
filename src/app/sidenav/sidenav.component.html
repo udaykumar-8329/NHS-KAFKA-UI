@@ -7,7 +7,7 @@
           close
       </mat-icon>
   </button>
- Uday Kumar Thota - Kafka Dashboard
+ Next Hop Systems - Kafka Dashboard
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -17,7 +17,7 @@
 
       <h4 class="name">Uday Kumar Thota</h4>
       <p class="designation">Data Engineer</p>
-      <p class="designation">ADP INDIA</p>
+      <p class="location">ADP INDIA</p>
 
       <mat-divider></mat-divider>
 
@@ -32,6 +32,18 @@
       <button mat-button class="menu-button">
           <mat-icon>info</mat-icon>
           <span>About</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button mat-button class="menu-button"  (click)="changeToRoute('devices')">
+        <mat-icon>devices_other</mat-icon>
+        <span>Devices</span>
+      </button>
+
+      <button mat-button class="menu-button"  (click)="changeToRoute('macdetails')">
+        <mat-icon>laptop_chromebook</mat-icon>
+        <span>Mac Details</span>
       </button>
 
       <mat-divider></mat-divider>

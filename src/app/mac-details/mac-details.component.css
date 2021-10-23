@@ -1,0 +1,63 @@
+.rightfab{
+  position: fixed;
+  right: 10px;
+  bottom: 15px;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-table, .mat-paginator{
+  width: 193%;
+  margin-left: 0.5%;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.mat-column-macaddress,.mat-column-area,.mat-column-city,.mat-column-country{
+  width: 25%;
+  margin: 25%;
+  font-size: large;
+}
+
+.mat-column-edit,.mat-column-delete{
+  width: 25%;
+  margin: 25%;
+  font-size: large;
+}
+
+@media screen and (max-width: 840px) {
+
+  .mat-table, .mat-paginator{
+    width: 133%;
+    margin-left: 0.2%;
+  }
+
+
+  .mat-column-macaddress,.mat-column-area,.mat-column-city,.mat-column-country{
+    width: 15%;
+    margin: 15%;
+    font-size: small;
+  }
+
+  .mat-column-edit,.mat-column-delete{
+    width: 15%;
+    margin: 15%;
+    font-size: small;
+  }
+
+
+}

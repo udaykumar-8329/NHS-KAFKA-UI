@@ -7,10 +7,16 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatDialogModule } from "@angular/material/dialog";
+
 import { MatListModule } from "@angular/material/list";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatExpansionModule, MatAccordion } from "@angular/material/expansion";
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [],
   exports: [
@@ -19,13 +25,18 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
+    MatSlideToggleModule,
     MatCardModule,
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
+    MatCheckboxModule,
     MatTabsModule,
     MatExpansionModule,
-    ScrollingModule
+    ScrollingModule,
+    MatDialogModule,
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }

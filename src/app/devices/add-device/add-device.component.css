@@ -1,0 +1,16 @@
+mat-form-field{
+  width: 99%;
+}
+
+.title{
+  display: flex;
+}
+
+.actionRow{
+  display: flex;
+}
+
+.actionRow button{
+  margin: 10px;
+  float: right;
+}

@@ -10,6 +10,7 @@ export class SidenavComponent implements OnInit {
 
   constructor(private router:Router) { }
 
+  sidenavStatus: boolean = false;
   ngOnInit(): void {
   }
 
