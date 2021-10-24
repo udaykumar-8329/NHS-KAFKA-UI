@@ -9,7 +9,7 @@ th.mat-sort-header-sorted {
 }
 
 .mat-table, .mat-paginator{
-  width: 193%;
+  width: 98%;
   margin-left: 0.5%;
 }
 
@@ -37,10 +37,10 @@ th.mat-sort-header-sorted {
   width: 2%;
 }
 
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 768px) {
 
   .mat-table, .mat-paginator{
-    width: 128%;
+    width: 58%;
     margin-left: 0.2%;
   }
 
@@ -54,4 +54,4 @@ th.mat-sort-header-sorted {
     width: 2%;
   }
 
-}
+} */

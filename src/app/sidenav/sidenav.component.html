@@ -11,8 +11,8 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-
+  <mat-sidenav #sidenav="matSidenav">
+    <!-- class="mat-elevation-z8" -->
       <img class="avatar mat-elevation-z8" src="https://avatars.githubusercontent.com/u/35301592?v=4" />
 
       <h4 class="name">Uday Kumar Thota</h4>
@@ -55,7 +55,7 @@
 
   </mat-sidenav>
   <mat-sidenav-content>
-      <div class="content mat-elevation-z8">
+      <div class="content">
           <router-outlet></router-outlet>
       </div>
   </mat-sidenav-content>
