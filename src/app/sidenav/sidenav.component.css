@@ -3,7 +3,7 @@ mat-toolbar {
   color: white;
 }
 
-/* mat-sidenav {
+mat-sidenav {
   margin: 16px;
   width: 200px;
   border-right: none;
@@ -12,7 +12,7 @@ mat-toolbar {
   border-radius: 10px;
   padding: 16px;
   text-align: center;
-} */
+}
 
 /* .content {
   height: calc(100vh - 78px);
