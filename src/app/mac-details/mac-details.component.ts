@@ -6,9 +6,10 @@ import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddDeviceComponent } from '../devices/add-device/add-device.component';
 import { MacDetail } from '../models/macdetails.model';
+import { MacdetailsService } from '../services/macdetails.service';
 import { AddMacDetailComponent } from './add-mac-detail/add-mac-detail.component';
 
-const DATA: MacDetail[] =[{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
+const DATA =[{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
 {macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
 {macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
 {macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
@@ -30,21 +31,26 @@ export class MacDetailsComponent implements OnInit {
 // @ViewChild(MatSort) sort: MatSort;
 macDetials: MacDetail[];
 displayedColumns: string[] = ['macaddress', 'area', 'city', 'country','edit','delete'];
-dataSource = new MatTableDataSource(DATA);
+dataSource;// = new MatTableDataSource(DATA);
 
 @ViewChild(MatPaginator) paginator: MatPaginator;
-constructor(private _matDialog: MatDialog, private _liveAnnouncer: LiveAnnouncer, private changeDetectorRefs: ChangeDetectorRef) { }
+constructor(private _matDialog: MatDialog, private _macDetailService: MacdetailsService, private _liveAnnouncer: LiveAnnouncer, private changeDetectorRefs: ChangeDetectorRef) { }
 
 
 ngOnInit(): void {
-  this.macDetials = DATA;
+  // this.macDetials = DATA;
+  this.getMacDetails();
  }
 
 ngAfterViewInit() {
   this.dataSource.paginator = this.paginator;
-
 }
 
+getMacDetails(){
+  this._macDetailService.getAllMacDetails().subscribe((res:MacDetail[])=>{
+    this.dataSource = new MatTableDataSource(res);
+  })
+}
 addNewDevice() {
   let dialogRef = this._matDialog.open(AddMacDetailComponent, {
     width: '60%'
@@ -53,9 +59,7 @@ addNewDevice() {
     console.log(res);
 
     if(res["status"]){
-      this.dataSource.data.push(res["data"]);
-      console.log("added");
-      this.changeDetectorRefs.detectChanges();
+      this.getMacDetails();
     }
   })
 }

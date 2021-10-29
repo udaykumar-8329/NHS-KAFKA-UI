@@ -1,6 +1,6 @@
 export class MacDetail{
-  macaddress : string;
-  area: string;
-  city: string;
-  country: string;
+  Macaddress : string;
+  Area: string;
+  City: string;
+  Country: string;
 }

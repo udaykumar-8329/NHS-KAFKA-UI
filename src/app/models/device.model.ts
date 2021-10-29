@@ -1,9 +1,9 @@
 export class Device{
-  name : string;
-  ip: string;
-  port: string;
-  username: string;
-  password: string;
-  isEnabled: boolean;
-  useNSO: boolean;
+  Name : string;
+  Ip: string;
+  Port: string;
+  Username: string;
+  Password: string;
+  IsEnabled: boolean;
+  UseNSO: boolean;
 }
