@@ -7,20 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AddDeviceComponent } from '../devices/add-device/add-device.component';
 import { MacDetail } from '../models/macdetails.model';
 import { MacdetailsService } from '../services/macdetails.service';
+import { GeoMapService } from '../services/map.service';
 import { AddMacDetailComponent } from './add-mac-detail/add-mac-detail.component';
-
-const DATA =[{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},
-{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country: 'sfasdfa'},]
 
 @Component({
   selector: 'ud-mac-details',
@@ -30,11 +18,12 @@ const DATA =[{macaddress: 'fasdffasdfs',area:'fasdfa', city: 'sdfasdf', country:
 export class MacDetailsComponent implements OnInit {
 // @ViewChild(MatSort) sort: MatSort;
 macDetials: MacDetail[];
-displayedColumns: string[] = ['macaddress', 'area', 'city', 'country','edit','delete'];
+displayedColumns: string[] = ['macaddress', 'area', 'city','state', 'country','edit','delete'];
 dataSource;// = new MatTableDataSource(DATA);
+geocodedData=[];
 
 @ViewChild(MatPaginator) paginator: MatPaginator;
-constructor(private _matDialog: MatDialog, private _macDetailService: MacdetailsService, private _liveAnnouncer: LiveAnnouncer, private changeDetectorRefs: ChangeDetectorRef) { }
+constructor(private _matDialog: MatDialog, private _mapService: GeoMapService , private _macDetailService: MacdetailsService, private _liveAnnouncer: LiveAnnouncer, private changeDetectorRefs: ChangeDetectorRef) { }
 
 
 ngOnInit(): void {
@@ -43,12 +32,19 @@ ngOnInit(): void {
  }
 
 ngAfterViewInit() {
-  this.dataSource.paginator = this.paginator;
 }
 
 getMacDetails(){
   this._macDetailService.getAllMacDetails().subscribe((res:MacDetail[])=>{
     this.dataSource = new MatTableDataSource(res);
+    this.dataSource.paginator = this.paginator;
+
+    res.forEach(element => {
+      this._mapService.getGeoCodingFromAddress(element.Area, element.City, element.State, element.Country)
+        .subscribe(geoData =>{
+          this.geocodedData.push(geoData["features"][0]["geometry"]["coordinates"]);
+      })
+    });
   })
 }
 addNewDevice() {
@@ -57,7 +53,6 @@ addNewDevice() {
   });
   dialogRef.afterClosed().subscribe((res)=>{
     console.log(res);
-
     if(res["status"]){
       this.getMacDetails();
     }

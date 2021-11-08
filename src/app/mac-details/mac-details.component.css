@@ -4,6 +4,15 @@
   bottom: 15px;
 }
 
+/* .custommap{
+  height: 80%;
+  width: 80%;
+} */
+
+table{
+  margin-top: 22%;
+}
+
 th.mat-sort-header-sorted {
   color: black;
 }
@@ -27,9 +36,9 @@ th.mat-sort-header-sorted {
   font-weight: bold;
 }
 
-.mat-column-macaddress,.mat-column-area,.mat-column-city,.mat-column-country{
-  width: 25%;
-  margin: 25%;
+.mat-column-macaddress,.mat-column-area,.mat-column-city,.mat-column-country,.mat-column-state {
+  width: 22%;
+  margin: 22%;
   font-size: large;
 }
 

@@ -29,6 +29,7 @@ import { DevicesComponent } from './devices/devices.component';
 import { AddDeviceComponent } from './devices/add-device/add-device.component';
 import { MacDetailsComponent } from './mac-details/mac-details.component';
 import { AddMacDetailComponent } from './mac-details/add-mac-detail/add-mac-detail.component';
+import { MapComponent } from './map/map.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { AddMacDetailComponent } from './mac-details/add-mac-detail/add-mac-deta
     DevicesComponent,
     AddDeviceComponent,
     MacDetailsComponent,
-    AddMacDetailComponent
+    AddMacDetailComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

@@ -23,6 +23,7 @@
     "@angular/platform-browser": "~11.2.7",
     "@angular/platform-browser-dynamic": "~11.2.7",
     "@angular/router": "~11.2.7",
+    "mapbox-gl": "^2.5.1",
     "chart.js": "^2.9.3",
     "lodash": "^4.17.21",
     "ng2-charts": "^2.2.3",

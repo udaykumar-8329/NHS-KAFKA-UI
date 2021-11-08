@@ -12,6 +12,7 @@ export class SidenavComponent implements OnInit {
 
   sidenavStatus: boolean = false;
   ngOnInit(): void {
+    // document.addEventListener('touchmove', handleTouchMove, {passive:false, capture:true});
   }
 
   changeToRoute (route){
@@ -19,3 +20,4 @@ export class SidenavComponent implements OnInit {
   }
 
 }
+
