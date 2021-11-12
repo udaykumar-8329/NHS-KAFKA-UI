@@ -17,6 +17,8 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 @NgModule({
   declarations: [],
   exports: [
@@ -36,7 +38,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ScrollingModule,
     MatDialogModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatStepperModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }

@@ -23,13 +23,15 @@ import { MyChartsComponent } from './my-charts/my-charts.component';
 import { ChartsModule } from 'ng2-charts';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { FormBuilder } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { DevicesComponent } from './devices/devices.component';
 import { AddDeviceComponent } from './devices/add-device/add-device.component';
 import { MacDetailsComponent } from './mac-details/mac-details.component';
 import { AddMacDetailComponent } from './mac-details/add-mac-detail/add-mac-detail.component';
 import { MapComponent } from './map/map.component';
+import { DeviceDetailsComponent } from './device-details/device-details.component';
+import { CustomLoaderComponent } from './custom-loader/custom-loader.component';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,9 @@ import { MapComponent } from './map/map.component';
     AddDeviceComponent,
     MacDetailsComponent,
     AddMacDetailComponent,
-    MapComponent
+    MapComponent,
+    DeviceDetailsComponent,
+    CustomLoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +72,8 @@ import { MapComponent } from './map/map.component';
       preventDuplicates:true,
       autoDismiss:true,
       progressBar:true,
-    })
+    }),
+    NgHttpLoaderModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

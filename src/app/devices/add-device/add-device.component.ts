@@ -1,7 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Coordinates } from 'src/app/models/coordinates.model';
+import { Device } from 'src/app/models/device.model';
 import { DeviceService } from 'src/app/services/device.service';
+import { GeoMapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'ud-add-device',
@@ -9,9 +12,12 @@ import { DeviceService } from 'src/app/services/device.service';
   styleUrls: ['./add-device.component.css']
 })
 export class AddDeviceComponent implements OnInit {
-
+  isLinear = true;
   deviceForm:FormGroup;
-  constructor(private _formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private _dialogRef: MatDialogRef<AddDeviceComponent>, private _deviceService: DeviceService) { }
+  macForm:FormGroup;
+  constructor(private _formBuilder: FormBuilder, private _mapService: GeoMapService,
+     @Inject(MAT_DIALOG_DATA) public data: any,
+     private _dialogRef: MatDialogRef<AddDeviceComponent>, private _deviceService: DeviceService) { }
 
   ngOnInit(): void {
     this.deviceForm = this._formBuilder.group({
@@ -23,21 +29,46 @@ export class AddDeviceComponent implements OnInit {
       IsEnabled:  [true, [Validators.required]],
       UseNSO:  [false, [Validators.required]]
     });
+    this.macForm = this._formBuilder.group({
+      Macaddress: ['', [Validators.required]],
+      City: ['', [Validators.required]],
+      Area:  ['', [Validators.required]],
+      State: ['', [Validators.required]],
+      Country:  ['India', [Validators.required]],
+    });
   }
 
-  onSubmit(){
+  async onSubmit(){
     console.log(this.deviceForm.value, this.deviceForm.valid);
 
-    if(this.deviceForm.valid){
+    if(this.deviceForm.valid && this.macForm.valid){
       // this._dialogRef.close({data: this.deviceForm.value, status: true});
-      this._deviceService.addDevice(this.deviceForm.value).subscribe((res)=>{
+      let deviceDetails: Device;
+      deviceDetails = this.deviceForm.value;
+      deviceDetails.macDetails = this.macForm.value;
+
+      await this._mapService.getGeoCodingFromAddress(deviceDetails.macDetails.Area,deviceDetails.macDetails.City,deviceDetails.macDetails.State, deviceDetails.macDetails.Country).subscribe(res => {
         console.log(res);
-        if(res["InsertedID"]){
-          this._dialogRef.close({status: true});
-        }else{
-          console.log("Something error occured, please check");
-        }
+
+        let coordinates: Coordinates = new Coordinates();
+        coordinates.latitude = res["features"][0]["center"][0];
+        coordinates.longitude = res["features"][0]["center"][1];
+        deviceDetails.coordinates = coordinates;
+        this._deviceService.addDevice(deviceDetails).subscribe((res)=>{
+          console.log(res);
+          if(res["InsertedID"]){
+            this._dialogRef.close({status: true});
+          }else{
+            console.log("Something error occured, please check");
+          }
+        });
+
       });
+
+
+    }else{
+      console.log("errors",this.deviceForm.errors, this.macForm.errors);
+      console.log("valid",this.deviceForm.valid, this.macForm.valid);
     }
   }
 
