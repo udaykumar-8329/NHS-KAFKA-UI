@@ -38,13 +38,14 @@ getMacDetails(){
   this._macDetailService.getAllMacDetails().subscribe((res:MacDetail[])=>{
     this.dataSource = new MatTableDataSource(res);
     this.dataSource.paginator = this.paginator;
-
-    res.forEach(element => {
-      this._mapService.getGeoCodingFromAddress(element.Area, element.City, element.State, element.Country)
-        .subscribe(geoData =>{
-          this.geocodedData.push(geoData["features"][0]["geometry"]["coordinates"]);
-      })
-    });
+    this.geocodedData = res;
+    // res.forEach(element => {
+    //   this._mapService.getGeoCodingFromAddress(element.Area, element.City, element.State, element.Country)
+    //     .subscribe(geoData =>{
+    //       this.geocodedData.push(geoData);
+    //       // this.geocodedData.push({coordinates: geoData["features"][0]["geometry"]["coordinates"], eid: element.Id});
+    //   })
+    // });
   })
 }
 addNewDevice() {

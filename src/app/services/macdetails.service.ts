@@ -25,4 +25,8 @@ export class MacdetailsService {
   addMacDetail(device:MacDetail){
     return this._http.post(this.apiUrl+'/macdetails/add',  device);
   }
+
+  getDetailsById(_id){
+    return this._http.get(this.apiUrl+'/fetch/macdetails/'+_id);
+  }
 }
