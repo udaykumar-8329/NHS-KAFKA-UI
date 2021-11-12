@@ -1,6 +1,6 @@
 <div class="title">
     <h3 style="width: 98%;">Add Device</h3>
-    <mat-icon style="width: 2%; cursor: pointer;" (click)="onClose()">close</mat-icon>
+    <mat-icon style="width: 2%; cursor: pointer;" *ngIf="showCloseButton" (click)="onClose()">close</mat-icon>
 </div>
 
 <!-- <div>
@@ -47,7 +47,7 @@
 <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
-<mat-stepper [linear]="true" #stepper>
+<mat-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="deviceForm">
     <form [formGroup]="deviceForm">
       <div>
@@ -83,7 +83,7 @@
       </div>
 
       <div class="actionRow">
-        <button *ngIf="!data" mat-raised-button color="primary" matStepperNext>Next</button>
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
         <!-- <button *ngIf="data" mat-raised-button color="warn" (click)="onEdit()">Modify Device Data</button> -->
       </div>
     </form>

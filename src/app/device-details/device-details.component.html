@@ -1,19 +1,25 @@
-<button class="btn warning" (click)="closeDialog()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+<div class="nav">
+  <mat-icon (click)="closeDialog()" class="btn warning">keyboard_arrow_left</mat-icon>
+  <mat-icon (click)="edit()" class="btn warning edit">edit</mat-icon>
+  <!-- <button class="btn warning" (click)="closeDialog()"><mat-icon>keyboard_arrow_left</mat-icon></button> -->
+  <!-- <button class="btn warning edit" (click)="edit()"><mat-icon>edit</mat-icon></button> -->
+</div>
+<div *ngIf="!isEditing">
 
-<h2>Device Details</h2>
+  <h2>Device Details</h2>
 
-<table>
-  <tr>
-    <td><h3>Name</h3></td>
-    <td><h3>{{data["name"]}}</h3></td>
-  </tr>
-  <tr>
-    <td><h3>IP Address</h3></td>
-    <td><h3>{{data["ip"]}}</h3></td>
-  </tr>
-  <tr>
-    <td><h3>Port Address</h3></td>
-    <td><h3>{{data["port"]}}</h3></td>
+  <table>
+    <tr>
+      <td><h3>Name</h3></td>
+      <td><h3>{{data["name"]}}</h3></td>
+    </tr>
+    <tr>
+      <td><h3>IP Address</h3></td>
+      <td><h3>{{data["ip"]}}</h3></td>
+    </tr>
+    <tr>
+      <td><h3>Port Address</h3></td>
+      <td><h3>{{data["port"]}}</h3></td>
   </tr>
   <tr>
     <td><h3>User Name</h3></td>
@@ -48,3 +54,16 @@
     <td><h3>{{data["coordinates"]["longitude"]}}</h3></td>
   </tr>
 </table>
+
+</div>
+
+<div *ngIf="isEditing">
+  <ud-add-device [isLinear]="false" [deviceId]="data._id" [showCloseButton]="false"></ud-add-device>
+</div>
+
+{{data._id}}
+
+
+<div *ngIf="isEditing" style="top: '95vh'; right: 20px;; position: fixed">
+  <button mat-raised-button color="warn">Close Editing</button>
+</div>

@@ -46,7 +46,8 @@ export class MapComponent implements OnInit,AfterViewInit {
     console.log('logging marker details'+markerDetails._id);
     this.deviceService.getDetailsById(markerDetails._id).subscribe((dev:Device) =>{
       let dialogRef = this._matDialog.open(DeviceDetailsComponent,{
-        hasBackdrop: false,
+        hasBackdrop: true,
+        disableClose: true,
         panelClass: "sample",
         width:"25vw",
         height:"100vh",
