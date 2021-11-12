@@ -25,4 +25,8 @@ export class DeviceService {
   addDevice(device:Device){
     return this._http.post(this.apiUrl+'/devices/add',  device);
   }
+
+  getDetailsById(_id){
+    return this._http.get(this.apiUrl+'/fetch/devices/'+_id);
+  }
 }

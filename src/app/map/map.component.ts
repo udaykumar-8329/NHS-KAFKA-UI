@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import * as mapboxgl from 'mapbox-gl';
+import { DeviceDetailsComponent } from '../device-details/device-details.component';
+import { Device } from '../models/device.model';
 import { MacDetail } from '../models/macdetails.model';
+import { DeviceService } from '../services/device.service';
 import { MacdetailsService } from '../services/macdetails.service';
 import { GeoMapService } from '../services/map.service';
 
@@ -11,9 +15,9 @@ import { GeoMapService } from '../services/map.service';
 })
 export class MapComponent implements OnInit,AfterViewInit {
 
-  @Input() markersInfo:[]=[];
+  @Input() markersInfo:Device[]=[];
 
-  constructor(private map: GeoMapService, private macService: MacdetailsService) {
+  constructor(private map: GeoMapService, private deviceService: DeviceService, private _matDialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -25,27 +29,33 @@ export class MapComponent implements OnInit,AfterViewInit {
     this.map.buildMap();
     var centerLat=0,centerLong=0;
     setTimeout(() => {
-      this.markersInfo.forEach((element:MacDetail) => {
-        console.log(element._id);
-        this.map.getGeoCodingFromAddress(element.Area, element.City, element.State, element.Country).subscribe(geoData => {
-          console.log(geoData);
-          centerLat+=geoData["features"][0]["geometry"]["coordinates"][0]; centerLong+=geoData["features"][0]["geometry"]["coordinates"][1];
-          let marker = new mapboxgl.Marker().setLngLat(geoData["features"][0]["center"])
+      this.markersInfo.forEach((element:Device) => {
+          centerLat+=element.coordinates.latitude; centerLong+=element.coordinates.longitude;
+          let marker = new mapboxgl.Marker().setLngLat([element.coordinates.latitude,element.coordinates.longitude])
           .setPopup(new mapboxgl.Popup({offset: 20}));
           marker.getElement().addEventListener('click', () => {
             this.getSettings(element);
           });
           marker.addTo(this.map.getMap())
-        })
-
       });
-      // this.map.setCenterLatLong(centerLat/this.markersInfo.length,centerLong/this.markersInfo.length);
+      this.map.setCenterLatLong(centerLat/this.markersInfo.length,centerLong/this.markersInfo.length);
     }, 5000);
   }
-  getSettings(markerDetails:MacDetail){
+  getSettings(markerDetails:Device){
+    let config = new MatDialogConfig();
     console.log('logging marker details'+markerDetails._id);
-    this.macService.getDetailsById(markerDetails._id).subscribe(res =>{
-      console.log(res);
+    this.deviceService.getDetailsById(markerDetails._id).subscribe((dev:Device) =>{
+      let dialogRef = this._matDialog.open(DeviceDetailsComponent,{
+        hasBackdrop: false,
+        panelClass: "sample",
+        width:"25vw",
+        height:"100vh",
+        position: {
+          right:'0',
+          top: '65px'
+        },
+        data: dev
+      })
     })
   }
 

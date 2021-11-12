@@ -35,24 +35,21 @@ const DATA = [{ name: 'fas', ip: 'dsfasdfa', port: '1213', username: 'fdasf', pa
 })
 export class DevicesComponent implements AfterViewInit {
 
-  // @ViewChild(MatSort) sort: MatSort;
   devices: Device[];
-  displayedColumns: string[] = ['name', 'ip', 'port', 'username', 'password', 'isEnabled', 'useNSO','edit','delete'];
+  displayedColumns: string[] = ['name', 'ip', 'port', 'area', 'city', 'state', 'country', 'isEnabled', 'useNSO','edit','delete'];
   dataSource;
+  geocodedData;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private _matDialog: MatDialog, private _liveAnnouncer: LiveAnnouncer, private changeDetectorRefs: ChangeDetectorRef, private _deviceService: DeviceService) {
     this.getDevices();
    }
 
-
   ngOnInit(): void {
     // this.devices = DATA;
-
-   }
+  }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
 
   }
 
@@ -60,13 +57,17 @@ export class DevicesComponent implements AfterViewInit {
     this._deviceService.getAllDevices().subscribe((res:Device[]) => {
       console.log(res);
       this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.geocodedData = res;
     });
+    console.log(this.dataSource);
   }
 
   addNewDevice() {
     let dialogRef = this._matDialog.open(AddDeviceComponent, {
       width: '60%'
     });
+
     dialogRef.afterClosed().subscribe((res)=>{
       console.log(res);
       if(res["status"]){
@@ -83,5 +84,4 @@ export class DevicesComponent implements AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-
 }

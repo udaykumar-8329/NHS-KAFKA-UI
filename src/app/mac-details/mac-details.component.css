@@ -47,26 +47,3 @@ th.mat-sort-header-sorted {
   margin: 25%;
   font-size: large;
 }
-
-/* @media screen and (max-width: 840px) {
-
-  .mat-table, .mat-paginator{
-    width: 133%;
-    margin-left: 0.2%;
-  }
-
-
-  .mat-column-macaddress,.mat-column-area,.mat-column-city,.mat-column-country{
-    width: 15%;
-    margin: 15%;
-    font-size: small;
-  }
-
-  .mat-column-edit,.mat-column-delete{
-    width: 15%;
-    margin: 15%;
-    font-size: small;
-  }
-
-
-} */

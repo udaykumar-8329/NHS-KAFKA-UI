@@ -1,0 +1,39 @@
+.btn {
+  background-color: white;
+  color: blueviolet;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 100%;
+}
+
+/* Orange */
+.warning {
+  border-color: #3737f0;
+  color: #3737f0;
+}
+
+.warning:hover {
+  background: blue;
+  color: white;
+}
+
+.details{
+  align-items: center;
+  color: blue;
+  margin: 2%;
+}
+
+.details label{
+  margin-right: 30px;
+  font-size: large;
+  font-weight: 800;
+}
+
+.details mat-label{
+  margin-left: 10px;
+  font-size: large;
+}
+
+table tr td:first{
+  font-size: large;
+}

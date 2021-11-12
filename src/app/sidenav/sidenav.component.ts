@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CustomLoaderComponent } from '../custom-loader/custom-loader.component';
 
 @Component({
   selector: 'ud-sidenav',
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
+  mySpinner = CustomLoaderComponent;
 
   constructor(private router:Router) { }
 

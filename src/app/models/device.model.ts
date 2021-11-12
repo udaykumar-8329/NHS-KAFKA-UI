@@ -1,4 +1,8 @@
+import { Coordinates } from "./coordinates.model";
+import { MacDetail } from "./macdetails.model";
+
 export class Device{
+  _id: string;
   Name : string;
   Ip: string;
   Port: string;
@@ -6,4 +10,6 @@ export class Device{
   Password: string;
   IsEnabled: boolean;
   UseNSO: boolean;
+  macDetails: MacDetail;
+  coordinates: Coordinates;
 }

@@ -27,9 +27,11 @@ th.mat-sort-header-sorted {
   font-weight: bold;
 }
 
-.mat-column-ip,.mat-column-name,.mat-column-port,.mat-column-useNSO,.mat-column-isEnabled,.mat-column-password,.mat-column-username{
-  width: 122px;
-  margin: 10px;
+.mat-column-ip,.mat-column-name,.mat-column-port,
+.mat-column-useNSO,.mat-column-isEnabled,.mat-column-area,.mat-column-city,
+.mat-column-state,.mat-column-country{
+  width: 102px;
+  margin: 8px;
   font-size: large;
 }
 
@@ -37,21 +39,6 @@ th.mat-sort-header-sorted {
   width: 2%;
 }
 
-/* @media screen and (max-width: 768px) {
-
-  .mat-table, .mat-paginator{
-    width: 58%;
-    margin-left: 0.2%;
-  }
-
-  .mat-column-ip,.mat-column-name,.mat-column-port,.mat-column-useNSO,.mat-column-isEnabled,.mat-column-password,.mat-column-username{
-    width: 98px;
-    margin: 10px;
-    font-size: small;
-  }
-
-  .mat-column-edit, .mat-column-delete{
-    width: 2%;
-  }
-
-} */
+table{
+  margin-top: 24%;
+}
