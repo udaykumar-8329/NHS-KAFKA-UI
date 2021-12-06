@@ -1,6 +1,8 @@
 <div class="nav">
   <mat-icon (click)="closeDialog()" class="btn warning">keyboard_arrow_left</mat-icon>
-  <mat-icon (click)="edit()" class="btn warning edit">edit</mat-icon>
+
+    <mat-icon (click)="edit()" class="btn warning edit">edit</mat-icon>
+
   <!-- <button class="btn warning" (click)="closeDialog()"><mat-icon>keyboard_arrow_left</mat-icon></button> -->
   <!-- <button class="btn warning edit" (click)="edit()"><mat-icon>edit</mat-icon></button> -->
 </div>
@@ -15,7 +17,7 @@
     </tr>
     <tr>
       <td><h3>IP Address</h3></td>
-      <td><h3>{{data["ip"]}}</h3></td>
+      <td><h3>{{data["ipaddress"]}}</h3></td>
     </tr>
     <tr>
       <td><h3>Port Address</h3></td>
@@ -31,39 +33,41 @@
   </tr>
   <tr>
     <td><h3>Area</h3></td>
-    <td><h3>{{data["macdetail"]["area"]}}</h3></td>
+    <td><h3>{{data["macDetails"]["area"]}}</h3></td>
   </tr>
   <tr>
     <td><h3>City</h3></td>
-    <td><h3>{{data["macdetail"]["city"]}}</h3></td>
+    <td><h3>{{data["macDetails"]["city"]}}</h3></td>
   </tr>
   <tr>
     <td><h3>State</h3></td>
-    <td><h3>{{data["macdetail"]["state"]}}</h3></td>
+    <td><h3>{{data["macDetails"]["state"]}}</h3></td>
   </tr>
   <tr>
     <td><h3>Country</h3></td>
-    <td><h3>{{data["macdetail"]["country"]}}</h3></td>
+    <td><h3>{{data["macDetails"]["country"]}}</h3></td>
   </tr>
   <tr>
     <td><h3>Latitude</h3></td>
-    <td><h3>{{data["coordinates"]["latitude"]}}</h3></td>
+    <td><h3>{{data["coordinates"]["geoLocation"][0]}}</h3></td>
   </tr>
   <tr>
     <td><h3>Longitude</h3></td>
-    <td><h3>{{data["coordinates"]["longitude"]}}</h3></td>
+    <td><h3>{{data["coordinates"]["geoLocation"][1]}}</h3></td>
   </tr>
 </table>
 
 </div>
 
 <div *ngIf="isEditing">
-  <ud-add-device [isLinear]="false" [deviceId]="data._id" [showCloseButton]="false"></ud-add-device>
+  <ud-add-device [isLinear]="false" [orientation]="vertical" [device]="data" [showCloseButton]="false"></ud-add-device>
 </div>
 
-{{data._id}}
 
-
-<div *ngIf="isEditing" style="top: '95vh'; right: 20px;; position: fixed">
+<!-- <div *ngIf="isEditing" style="top: '95vh'; right: 20px;; position: fixed">
   <button mat-raised-button color="warn">Close Editing</button>
+</div> -->
+
+<div>
+  <mat-slide-toggle matInput [checked]="isEnabled" color="primary" (change)="changeStatus(data['_id'], $event)" >Device Status</mat-slide-toggle>
 </div>

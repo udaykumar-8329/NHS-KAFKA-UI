@@ -16,7 +16,8 @@ export class AddDeviceComponent implements OnInit {
   macForm: FormGroup;
   @Input() showCloseButton: Boolean = true;
   @Input() isLinear: Boolean = true;
-  @Input() device:string='';
+  @Input() device:Device;
+  @Input() orientation:string='horizontal';
 
   constructor(private _formBuilder: FormBuilder, private _mapService: GeoMapService,
     @Inject(MAT_DIALOG_DATA) public data: Device,
@@ -24,48 +25,54 @@ export class AddDeviceComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      if (this.device === '') {
+      console.log(this.device);
+      if (!this.device) {
         console.log('in if',this.device);
 
         this.deviceForm = this._formBuilder.group({
-          Name: ['', [Validators.required]],
-          Ip: ['', [Validators.required]],
-          Port: ['', [Validators.required]],
-          Username: ['', [Validators.required]],
-          Password: ['', [Validators.required]],
-          IsEnabled: [true, [Validators.required]],
-          UseNSO: [false, [Validators.required]]
+          name: ['', [Validators.required]],
+          ipaddress: ['', [Validators.required]],
+          port: ['', [Validators.required]],
+          username: ['', [Validators.required]],
+          password: ['', [Validators.required]],
+          isEnabled: [true, [Validators.required]],
+          useNSO: [false, [Validators.required]]
         });
         this.macForm = this._formBuilder.group({
-          Macaddress: ['', [Validators.required]],
-          City: ['', [Validators.required]],
-          Area: ['', [Validators.required]],
-          State: ['', [Validators.required]],
-          Country: ['India', [Validators.required]],
+          macAddress: ['', [Validators.required]],
+          city: ['', [Validators.required]],
+          area: ['', [Validators.required]],
+          state: ['', [Validators.required]],
+          country: ['India', [Validators.required]],
         });
       } else {
         console.log('in else',this.device);
-        // this.deviceForm = this._formBuilder.group({
-        //   Name: [this.devices.Name, [Validators.required]],
-        //   Ip: [this.devices.Ip, [Validators.required]],
-        //   Port: [this.devices.Port, [Validators.required]],
-        //   Username: [this.devices.Username, [Validators.required]],
-        //   Password: [this.devices.Password, [Validators.required]],
-        //   IsEnabled: [this.devices.IsEnabled, [Validators.required]],
-        //   UseNSO: [this.devices.UseNSO, [Validators.required]]
-        // });
-        // this.macForm = this._formBuilder.group({
-        //   Macaddress: [this.devices.macDetails.Macaddress, [Validators.required]],
-        //   City: [this.devices.macDetails.City, [Validators.required]],
-        //   Area: [this.devices.macDetails.Area, [Validators.required]],
-        //   State: [this.devices.macDetails.State, [Validators.required]],
-        //   Country: [this.devices.macDetails.Country, [Validators.required]],
-        // });
+
+        this.deviceForm = this._formBuilder.group({
+          name: [this.device['name'], [Validators.required]],
+          ipaddress: [this.device['ipaddress'], [Validators.required]],
+          port: [this.device['port'], [Validators.required]],
+          username: [this.device['username'], [Validators.required]],
+          password: [this.device['password'], [Validators.required]],
+          isEnabled: [this.device['isEnabled'], [Validators.required]],
+          useNSO: [this.device['useNSO'], [Validators.required]]
+        });
+        this.macForm = this._formBuilder.group({
+          macAddress: [this.device['macDetails']['macAddress'], [Validators.required]],
+          city: [this.device['macDetails']['city'], [Validators.required]],
+          area: [this.device['macDetails']['area'], [Validators.required]],
+          state: [this.device['macDetails']['state'], [Validators.required]],
+          country: [this.device['macDetails']['country'], [Validators.required]],
+        });
+
       }
+    }
+    ngOnChanges(changes){
+      console.log(changes);
     }
 
   async onSubmit() {
-    console.log(this.deviceForm.value, this.deviceForm.valid);
+    console.log(this.deviceForm.value, this.macForm.valid);
 
     if (this.deviceForm.valid && this.macForm.valid) {
       // this._dialogRef.close({data: this.deviceForm.value, status: true});
@@ -73,7 +80,7 @@ export class AddDeviceComponent implements OnInit {
       deviceDetails = this.deviceForm.value;
       deviceDetails.macDetails = this.macForm.value;
 
-      await this._mapService.getGeoCodingFromAddress(deviceDetails.macDetails.Area, deviceDetails.macDetails.City, deviceDetails.macDetails.State, deviceDetails.macDetails.Country).subscribe(res => {
+      await this._mapService.getGeoCodingFromAddress(deviceDetails.macDetails.area, deviceDetails.macDetails.city, deviceDetails.macDetails.state, deviceDetails.macDetails.city).subscribe(res => {
         console.log(res);
 
         let coordinates: Coordinates = new Coordinates();
@@ -82,7 +89,7 @@ export class AddDeviceComponent implements OnInit {
         deviceDetails.coordinates = coordinates;
         this._deviceService.addDevice(deviceDetails).subscribe((res) => {
           console.log(res);
-          if (res["InsertedID"]) {
+          if (res["status"]) {
             this._dialogRef.close({ status: true });
           } else {
             console.log("Something error occured, please check");
@@ -98,12 +105,37 @@ export class AddDeviceComponent implements OnInit {
     }
   }
 
-  onEdit() {
+  onEdit(id) {
     console.log(this.deviceForm.value);
-    if (this.deviceForm.valid) {
-      this._dialogRef.close({ data: this.deviceForm.value, status: true });
+    if (this.deviceForm.valid&&this.macForm.valid) {
+      var device:Device;
+      device = this.deviceForm.value;
+      console.log(this.getDirtyValues([this.deviceForm,this.macForm]));
+
+      this._deviceService.updateDeviceById(id, this.getDirtyValues([this.deviceForm,this.macForm])).subscribe(res => {
+        console.log(res);
+      });
     }
   }
+
+  getDirtyValues(forms: any[]) {
+    let dirtyValues = {};
+    forms.forEach(form => {
+        Object.keys(form.controls)
+            .forEach(key => {
+                const currentControl = form.controls[key];
+
+                if (currentControl.dirty) {
+                    if (currentControl.controls)
+                        dirtyValues[key] = this.getDirtyValues(currentControl);
+                    else
+                        dirtyValues[key] = currentControl.value;
+                }
+            });
+    });
+
+    return dirtyValues;
+}
 
   onClose() {
     this._dialogRef.close();

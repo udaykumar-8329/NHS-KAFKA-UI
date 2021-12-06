@@ -21,10 +21,10 @@ export class FetchdataService {
 
   fetchAllGCInfo(inputData?){
     if(typeof inputData == undefined){
-      return this._http.get(this.apiUrl+"/fetch/gc/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
+      return this._http.get(this.apiUrl+"/cpugc/fetch/gc/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
     }
     else{
-      return this._http.get(this.apiUrl+"/fetch/gc/all");
+      return this._http.get(this.apiUrl+"/cpugc/fetch/gc/all");
     }
   }
 
@@ -32,10 +32,10 @@ export class FetchdataService {
     console.log(inputData);
 
     if(typeof inputData == undefined){
-      return this._http.get(this.apiUrl+"/fetch/cpu/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
+      return this._http.get(this.apiUrl+"/cpugc/fetch/cpu/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
     }
     else{
-      return this._http.get(this.apiUrl+"/fetch/cpu/all");
+      return this._http.get(this.apiUrl+"/cpugc/fetch/cpu/all");
     }
   }
 }

@@ -8,6 +8,11 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { DeviceService } from '../services/device.service';
+import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import { DialogContentComponent } from '../dialog-content/dialog-content.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { DeviceDetailsComponent } from '../device-details/device-details.component';
+
 
 const DATA = [{ name: 'fas', ip: 'dsfasdfa', port: '1213', username: 'fdasf', password: 'dfasf', isEnabled: false, useNSO: true },
 { name: 'fafass', ip: '103.249.77.21', port: '1213', username: 'fdasf', password: 'dfasf', isEnabled: true, useNSO: true },
@@ -41,7 +46,9 @@ export class DevicesComponent implements AfterViewInit {
   geocodedData;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private _matDialog: MatDialog, private _liveAnnouncer: LiveAnnouncer, private changeDetectorRefs: ChangeDetectorRef, private _deviceService: DeviceService) {
+  constructor(private _matDialog: MatDialog, private _liveAnnouncer: LiveAnnouncer,
+    private _bottomSheet: MatBottomSheet, private _snackBar:MatSnackBar,
+     private changeDetectorRefs: ChangeDetectorRef, private _deviceService: DeviceService) {
     this.getDevices();
    }
 
@@ -76,12 +83,54 @@ export class DevicesComponent implements AfterViewInit {
     })
   }
 
-  /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  deleteDeviceById(id){
+    let sheetRef = this._bottomSheet.open(DialogContentComponent);
+    sheetRef.disableClose = true;
+    sheetRef.afterDismissed().subscribe(res => {
+      if(res){
+        this._deviceService.deleteDeviceById(id).subscribe(res=>{
+          console.log(res);
+        })
+      }else{
+        this._snackBar.open('Deletion Cancelled', 'Close', {
+          duration: 600
+        })
+      }
+    })
+  }
+
+  openEditPage(deviceId){
+    this._deviceService.getDetailsById(deviceId).subscribe((dev:Device) =>{
+      dev["edit"] = true;
+      let dialogRef = this._matDialog.open(DeviceDetailsComponent,{
+        hasBackdrop: true,
+        disableClose: true,
+        panelClass: "sample",
+        width:"25vw",
+        height:"100vh",
+        position: {
+          right:'0',
+          top: '65px'
+        },
+        data: dev,
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result['status']){
+          // this.getDevices();
+          console.log(result);
+
+          window.location.reload();
+        }
+      })
+    });
   }
 }

@@ -48,38 +48,38 @@
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
 <mat-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="deviceForm">
+  <mat-step [stepControl]="deviceForm" label="Device Basic Details" >
     <form [formGroup]="deviceForm">
       <div>
         <mat-form-field>
-          <input matInput formControlName="Name" placeholder="Enter Device Name" />
+          <input matInput formControlName="name" placeholder="Enter Device Name" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput formControlName="Ip" placeholder="Enter Device IP Address" />
+          <input matInput formControlName="ipaddress" placeholder="Enter Device IP Address" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput formControlName="Port" placeholder="Enter Device Port Address" />
+          <input matInput formControlName="port" placeholder="Enter Device Port Address" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput formControlName="Username" placeholder="Enter User Name" />
+          <input matInput formControlName="username" placeholder="Enter User Name" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput formControlName="Password" placeholder="Enter Password" />
+          <input matInput formControlName="password" placeholder="Enter Password" />
         </mat-form-field>
       </div>
       <div>
-          <mat-slide-toggle matInput formControlName="IsEnabled">Enabled</mat-slide-toggle>
+          <mat-slide-toggle matInput formControlName="isEnabled">Enabled</mat-slide-toggle>
       </div>
       <div>
-          <mat-slide-toggle matInput formControlName="UseNSO">Use NSO </mat-slide-toggle>
+          <mat-slide-toggle matInput formControlName="useNSO">Use NSO </mat-slide-toggle>
       </div>
 
       <div class="actionRow">
@@ -88,47 +88,47 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="macForm" label="Fill out your address">
+  <mat-step [stepControl]="macForm" label="Mac & Location Details">
     <form [formGroup]="macForm">
       <div>
         <mat-form-field>
-          <input matInput formControlName="Macaddress" placeholder="Enter Mac Address" />
+          <input matInput formControlName="macAddress" placeholder="Enter Mac Address" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput formControlName="Area" placeholder="Enter Area" />
+          <input matInput formControlName="area" placeholder="Enter Area" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput formControlName="City" placeholder="Enter City" />
+          <input matInput formControlName="city" placeholder="Enter City" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput formControlName="State" placeholder="Enter State" />
+          <input matInput formControlName="state" placeholder="Enter State" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput formControlName="Country" placeholder="Enter Country" />
+          <input matInput formControlName="country" placeholder="Enter Country" />
         </mat-form-field>
       </div>
 
       <div class="actionRow">
         <button *ngIf="!data" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
-        <button *ngIf="data" mat-raised-button color="warn" (click)="onEdit()">Modify Device Data</button>
+        <button *ngIf="data" [disabled]="!(deviceForm.dirty || macForm.dirty)" mat-raised-button color="warn" (click)="onEdit(device['_id'])">Modify Device Data</button>
       </div>
     </form>
 
   </mat-step>
-  <mat-step>
+  <!-- <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
-  </mat-step>
+  </mat-step> -->
 </mat-stepper>

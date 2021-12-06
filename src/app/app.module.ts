@@ -32,6 +32,7 @@ import { MapComponent } from './map/map.component';
 import { DeviceDetailsComponent } from './device-details/device-details.component';
 import { CustomLoaderComponent } from './custom-loader/custom-loader.component';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+import { DialogContentComponent } from './dialog-content/dialog-content.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     AddMacDetailComponent,
     MapComponent,
     DeviceDetailsComponent,
-    CustomLoaderComponent
+    CustomLoaderComponent,
+    DialogContentComponent
   ],
   imports: [
     BrowserModule,

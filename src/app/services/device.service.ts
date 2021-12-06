@@ -19,14 +19,27 @@ export class DeviceService {
   }
 
   getAllDevices(){
-    return this._http.get(this.apiUrl+"/fetch/devices/all");
+    return this._http.get(this.apiUrl+"/device/all");
   }
 
   addDevice(device:Device){
-    return this._http.post(this.apiUrl+'/devices/add',  device);
+    // return this._http.post(this.apiUrl+'/devices/add',  device);
+    return this._http.post(this.apiUrl+'/device',  device);
   }
 
   getDetailsById(_id){
-    return this._http.get(this.apiUrl+'/fetch/devices/'+_id);
+    return this._http.get(this.apiUrl+'/device/'+_id);
+  }
+
+  updateDeviceById(id: any, device:any){
+    return this._http.put(this.apiUrl+'/device/update/'+id, device)
+  }
+
+  deleteDeviceById(deviceId){
+    return this._http.delete(this.apiUrl+'/device/'+deviceId)
+  }
+
+  updateDeviceStatus(deviceId,status){
+    return this._http.post(this.apiUrl+'/device/modifystatus/'+deviceId, {isEnabled: status})
   }
 }
