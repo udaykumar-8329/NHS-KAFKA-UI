@@ -32,7 +32,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   height: 100%;
   position: fixed;
   right: 0;
-  top: 0;
+  top: -30px;
   -webkit-animation-name: slide-down;
   -moz-animation-name: slide-down;
   -o-animation-name: slide-down;

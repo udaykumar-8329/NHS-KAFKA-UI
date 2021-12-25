@@ -71,3 +71,10 @@
 <div>
   <mat-slide-toggle matInput [checked]="isEnabled" color="primary" (change)="changeStatus(data['_id'], $event)" >Device Status</mat-slide-toggle>
 </div>
+
+<div>
+  <h4>Device Config</h4>
+  {{this.devConfig}}
+  <h4>Device Capabilities</h4>
+  {{this.devCapabilities}}
+</div>

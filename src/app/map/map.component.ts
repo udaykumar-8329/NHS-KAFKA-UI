@@ -53,7 +53,7 @@ export class MapComponent implements OnInit,AfterViewInit {
         height:"100vh",
         position: {
           right:'0',
-          top: '65px'
+          top: '-30px'
         },
         data: dev
       })
