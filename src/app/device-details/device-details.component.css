@@ -1,21 +1,29 @@
 .btn {
   background-color: white;
   color: blueviolet;
-  font-size: 16px;
+  font-size: 32px;
   cursor: pointer;
   border-radius: 100%;
 }
 
+.nav{
+  margin-bottom: 2%;
+}
+
+.edit{
+  float: right;
+}
+
 /* Orange */
 .warning {
-  border-color: #3737f0;
+  /* border-color: #3737f0; */
   color: #3737f0;
 }
 
-.warning:hover {
+/* .warning:hover {
   background: blue;
   color: white;
-}
+} */
 
 .details{
   align-items: center;

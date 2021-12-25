@@ -30,8 +30,8 @@ export class MapComponent implements OnInit,AfterViewInit {
     var centerLat=0,centerLong=0;
     setTimeout(() => {
       this.markersInfo.forEach((element:Device) => {
-          centerLat+=element.coordinates.latitude; centerLong+=element.coordinates.longitude;
-          let marker = new mapboxgl.Marker().setLngLat([element.coordinates.latitude,element.coordinates.longitude])
+          centerLat+=element.coordinates["geoLocation"][0]; centerLong+=element.coordinates["geoLocation"][1];
+          let marker = new mapboxgl.Marker().setLngLat([element.coordinates["geoLocation"][0],element.coordinates["geoLocation"][1]])
           .setPopup(new mapboxgl.Popup({offset: 20}));
           marker.getElement().addEventListener('click', () => {
             this.getSettings(element);
@@ -46,13 +46,14 @@ export class MapComponent implements OnInit,AfterViewInit {
     console.log('logging marker details'+markerDetails._id);
     this.deviceService.getDetailsById(markerDetails._id).subscribe((dev:Device) =>{
       let dialogRef = this._matDialog.open(DeviceDetailsComponent,{
-        hasBackdrop: false,
+        hasBackdrop: true,
+        disableClose: true,
         panelClass: "sample",
         width:"25vw",
         height:"100vh",
         position: {
           right:'0',
-          top: '65px'
+          top: '-30px'
         },
         data: dev
       })

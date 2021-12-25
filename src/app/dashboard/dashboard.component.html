@@ -1,33 +1,113 @@
 <!-- <div *ngFor="let item of charts"> -->
-  <!-- <div class="container" fxLayout="row" fxLayout.sm="column" fxLayoutWrap fxLayoutGap="0.05%" fxLayoutAlign="center"> -->
-    <div>
+<div class="container" fxLayout="row" fxLayout.sm="column" fxLayoutWrap fxLayoutGap="0.05%" fxLayoutAlign="center">
+<div class="child">
     <ng-container *ngIf="pieChartLabels.length!=0">
          <mat-card>
           <mat-card-title> Different IP Addresses </mat-card-title>
           <mat-card-content>
-              <canvas
-                baseChart
-                [labels]="pieChartLabels"
+            <canvas
+            baseChart
+
+            [labels]="pieChartLabels"
                 [data]="pieChartData"
                 [chartType]="pieChartType"
                 [options]="pieChartOptions"
                 [plugins]="pieChartPlugins"
-                [legend]="pieChartLegend"
                 [colors]="pieChartColors"
                 >
               </canvas>
+              <!-- [legend]="pieChartLegend" -->
           </mat-card-content>
         </mat-card>
 </ng-container>
+
+</div>
+<div class="child">
+  <ng-container *ngIf="pieChartLabels.length!=0">
+       <mat-card>
+        <mat-card-title> Different IP Ports </mat-card-title>
+        <mat-card-content>
+          <canvas
+          baseChart
+
+          [labels]="pieChartLabels"
+              [data]="pieChartData"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [colors]="pieChartColors"
+              >
+            </canvas>
+            <!-- [legend]="pieChartLegend" -->
+        </mat-card-content>
+      </mat-card>
+</ng-container>
+
 </div>
 <div *ngIf="pieChartLabels.length==0">
-  <b>
-    No data available....
-  </b>
+  <p>
+    <b>
+      No data available....
+    </b>
+  </p>
 </div>
 
-<!-- </div> -->
+</div>
 
+<div class="container" fxLayout="row" fxLayout.sm="column" fxLayoutWrap fxLayoutGap="0.05%" fxLayoutAlign="center">
+  <div class="child">
+      <ng-container *ngIf="pieChartLabels.length!=0">
+           <mat-card>
+            <mat-card-title> Different *********** </mat-card-title>
+            <mat-card-content>
+              <canvas
+              baseChart
+
+              [labels]="pieChartLabels"
+                  [data]="pieChartData"
+                  [chartType]="pieChartType"
+                  [options]="pieChartOptions"
+                  [plugins]="pieChartPlugins"
+                  [colors]="pieChartColors"
+                  >
+                </canvas>
+                <!-- [legend]="pieChartLegend" -->
+            </mat-card-content>
+          </mat-card>
+  </ng-container>
+
+  </div>
+  <div class="child">
+    <ng-container *ngIf="pieChartLabels.length!=0">
+         <mat-card>
+          <mat-card-title> Different ********** </mat-card-title>
+          <mat-card-content>
+            <canvas
+            baseChart
+
+            [labels]="pieChartLabels"
+                [data]="pieChartData"
+                [chartType]="pieChartType"
+                [options]="pieChartOptions"
+                [plugins]="pieChartPlugins"
+                [colors]="pieChartColors"
+                >
+              </canvas>
+              <!-- [legend]="pieChartLegend" -->
+          </mat-card-content>
+        </mat-card>
+  </ng-container>
+
+  </div>
+  <div *ngIf="pieChartLabels.length==0">
+    <p>
+      <b>
+        No data available....
+      </b>
+    </p>
+  </div>
+
+  </div>
 
 <!-- <div class="scrollableContent">
   <div *ngFor="let item of Details" class="borderContent" >

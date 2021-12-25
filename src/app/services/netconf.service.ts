@@ -6,8 +6,9 @@ import { Device } from '../models/device.model';
 @Injectable({
   providedIn: 'root'
 })
-export class DeviceService {
+export class NetConfService {
   apiUrl= environment.apiBaseUrl;
+  netConfUrl = environment.netconfBaseUrl;
   constructor(private _http:HttpClient) { }
   options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -16,6 +17,18 @@ export class DeviceService {
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
+  }
+
+  getNetConfCapabilities(){
+    return this._http.get(this.apiUrl+'/netconf/capabilities');
+  }
+
+  getNetConfRPCStatus(ip, status){
+    return this._http.get(this.apiUrl+'/netconf/sendrpc/'+ip+'/'+status)
+  }
+
+  getNetConfConfig(){
+    return this._http.get(this.apiUrl+'/netconf/config');
   }
 
   getAllDevices(){
@@ -42,4 +55,5 @@ export class DeviceService {
   updateDeviceStatus(deviceId,status){
     return this._http.post(this.apiUrl+'/device/modifystatus/'+deviceId, {isEnabled: status})
   }
+
 }

@@ -50,7 +50,7 @@ export class SearchComponent implements OnInit {
       if(res){
         if(res!==this.cpuData)
           {
-            this.cpuData=res;
+            this.cpuData=res["data"];
             this._toastrService.success("Data Changed","Loading Data")
           }
         else {
@@ -69,7 +69,7 @@ export class SearchComponent implements OnInit {
     await this._fetchService.fetchAllGCInfo(this.data).subscribe( (res:[]) => {
       if(res){
         if(res!==this.gcData){
-          this.gcData=res;
+          this.gcData=res["data"];
           this._toastrService.success("Data Changed","Loading Data")
         }
         else {

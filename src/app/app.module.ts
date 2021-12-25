@@ -32,6 +32,10 @@ import { MapComponent } from './map/map.component';
 import { DeviceDetailsComponent } from './device-details/device-details.component';
 import { CustomLoaderComponent } from './custom-loader/custom-loader.component';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+import { DialogContentComponent } from './dialog-content/dialog-content.component';
+import { NgProgressModule } from 'ngx-progressbar';
+import { NgProgressHttpModule } from "ngx-progressbar/http";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +50,8 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     AddMacDetailComponent,
     MapComponent,
     DeviceDetailsComponent,
-    CustomLoaderComponent
+    CustomLoaderComponent,
+    DialogContentComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,12 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
       autoDismiss:true,
       progressBar:true,
     }),
-    NgHttpLoaderModule.forRoot()
+    NgHttpLoaderModule.forRoot(),
+    NgProgressModule.withConfig({
+      color: 'purple',
+      thick: true
+    }),
+    NgProgressHttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

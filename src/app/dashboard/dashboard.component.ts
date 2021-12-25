@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, ChartOptions, ChartType } from 'chart.js';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color } from 'ng2-charts';
+import { ChartOptions, ChartScales, ChartType } from 'chart.js';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 import { FetchdataService } from '../services/fetchdata.service';
 import * as _ from 'lodash';
 import * as IPinfo from '../models/ipinfo.model';
@@ -21,12 +21,15 @@ export class DashboardComponent implements OnInit {
   public pieChartLabels: Label[] = [];
   public pieChartData: SingleDataSet = [];
   public pieChartType: ChartType = 'pie';
+  public pieChartTicksConfig: ChartScales = {
+
+  }
   public pieChartLegend = true;
   public pieChartPlugins = [];
   public pieChartColors = [
     {
     backgroundColor: [
-      // 'red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)',
+      'red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)','red', 'yellow', 'rgba(148,159,177,0.2)',
     ],
     // borderColor: [
     //   'rgba(135,206,250,1)', 'rgba(106,90,205,1)', 'rgba(148,159,177,1)','rgba(135,206,250,1)', 'rgba(106,90,205,1)', 'rgba(148,159,177,1)','rgba(135,206,250,1)', 'rgba(106,90,205,1)', 'rgba(148,159,177,1)','rgba(135,206,250,1)', 'rgba(106,90,205,1)', 'rgba(148,159,177,1)'
@@ -41,7 +44,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this._fetchService.fetchAllCPUInfo().subscribe((res:IPinfo.CPUTelemetryData[]) => {
       console.log(res);
-      this.Details = res;
+      this.Details = res["data"];
+
+
       const counts = {};
       this.Details.forEach((x) => {
         // console.log(x);
