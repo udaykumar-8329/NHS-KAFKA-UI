@@ -20,7 +20,7 @@ export class FetchdataService {
   }
 
   fetchAllGCInfo(inputData?){
-    if(typeof inputData == undefined){
+    if(typeof inputData != undefined && (inputData["ipAddress"]!='' || inputData['port']!='')){
       return this._http.get(this.apiUrl+"/cpugc/fetch/gc/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
     }
     else{
@@ -31,7 +31,7 @@ export class FetchdataService {
   fetchAllCPUInfo(inputData?){
     console.log(inputData);
 
-    if(typeof inputData == undefined){
+    if(typeof inputData != undefined && (inputData["ipAddress"]!='' || inputData['port']!='')){
       return this._http.get(this.apiUrl+"/cpugc/fetch/cpu/all/"+inputData["ipAddress"]+"/"+inputData["port"]);
     }
     else{
